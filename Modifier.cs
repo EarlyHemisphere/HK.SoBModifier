@@ -88,7 +88,6 @@ namespace SoBModifier {
 
         private void SceneChanged(UnityEngine.SceneManagement.Scene from, UnityEngine.SceneManagement.Scene to) {
             if (to.name != "GG_Mantis_Lords_V" || from.name == "GG_Mantis_Lords_V" && to.name == "GG_Mantis_Lords_V") {
-                Modding.Logger.Log("Scene changed");
                 fightStarted = false;
                 firstWaveMantises = new();
                 secondWaveMantises = new();
@@ -96,9 +95,7 @@ namespace SoBModifier {
         }
 
         public void SetMantisesActive() {
-            Modding.Logger.Log("SetMantisesActive");
             int numMantisesActive = secondWaveMantises.Count(mantis => mantis != null && mantis.activeSelf == true);
-            Modding.Logger.Log(numMantisesActive);
             if (battleSubFSM != null) {
                 battleSubFSM.FsmVariables.GetFsmInt("Mantises Active").Value = numMantisesActive;
             }
@@ -111,10 +108,8 @@ namespace SoBModifier {
         }
 
         private IEnumerator SetBattleEnemies() {
-            Modding.Logger.Log("SetBattleEnemies");
             yield return new WaitForSeconds(0.25f);
             if (battleControlFSM != null) {
-                Modding.Logger.Log(secondWaveMantises.Count);
                 battleControlFSM.FsmVariables.GetFsmInt("Battle Enemies").Value = secondWaveMantises.Count;
             }
         }
